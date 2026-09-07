@@ -33,8 +33,7 @@ public class Member {
     // Method meminjam buku
     public void pinjamBuku(Buku buku) {
 
-        if (buku.isTersedia()) {
-            buku.pinjamBuku();
+        if (buku != null && buku.pinjamBuku()) {
             daftarBukuDipinjam.add(buku);
 
             System.out.println(
@@ -44,7 +43,7 @@ public class Member {
 
         } else {
             System.out.println(
-                "Buku \"" + buku.getJudul() +
+                "Buku \"" + (buku != null ? buku.getJudul() : "") +
                 "\" tidak tersedia."
             );
         }
@@ -53,10 +52,8 @@ public class Member {
     // Method mengembalikan buku
     public void kembalikanBuku(Buku buku) {
 
-        if (daftarBukuDipinjam.contains(buku)) {
-
+        if (buku != null && daftarBukuDipinjam.remove(buku)) {
             buku.kembalikanBuku();
-            daftarBukuDipinjam.remove(buku);
 
             System.out.println(
                 nama + " mengembalikan buku \"" +
