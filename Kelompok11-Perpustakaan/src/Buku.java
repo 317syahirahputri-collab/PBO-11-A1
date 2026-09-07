@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public class Buku {
 
     private String idBuku;
@@ -47,19 +49,17 @@ public class Buku {
     }
 
     // Method untuk meminjam buku
-    public void pinjamBuku() {
+    public boolean pinjamBuku() {
         if (tersedia) {
             tersedia = false;
-            System.out.println("Buku \"" + judul + "\" berhasil dipinjam.");
-        } else {
-            System.out.println("Buku \"" + judul + "\" sedang dipinjam.");
+            return true;
         }
+        return false;
     }
 
     // Method untuk mengembalikan buku
     public void kembalikanBuku() {
         tersedia = true;
-        System.out.println("Buku \"" + judul + "\" berhasil dikembalikan.");
     }
 
     // Menampilkan informasi buku
@@ -71,5 +71,19 @@ public class Buku {
         System.out.println("Genre        : " + genre.getNamaGenre());
         System.out.println("Status       : " +
                 (tersedia ? "Tersedia" : "Sedang Dipinjam"));
+    }
+
+    // Membandingkan kesamaan objek buku berdasarkan ID
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Buku buku = (Buku) o;
+        return Objects.equals(idBuku, buku.idBuku);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(idBuku);
     }
 }
